@@ -3,7 +3,7 @@
 namespace src\Spec\App;
 
 use src\Core\AdjustmentRuleInterface;
-use src\Core\AmountAdjustmentInterface;
+use src\Core\AmountAdjustment;
 use src\Spec\AmountAdjustment\DefaultAmountAdjustment;
 
 class AdjustmentRule
@@ -15,7 +15,7 @@ class AdjustmentRule
         protected array $rules
     ) { }
 
-    public function apply(Customer $customer, \DateTimeImmutable $dateTime): AmountAdjustmentInterface
+    public function apply(Customer $customer, \DateTimeImmutable $dateTime): AmountAdjustment
     {
         // 条件に一致しない場合デフォルト設定を適用
         $amountAdjustment = new DefaultAmountAdjustment($customer);

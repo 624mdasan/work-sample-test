@@ -2,7 +2,7 @@
 
 namespace src;
 
-use src\Core\AmountAdjustmentInterface;
+use src\Core\AmountAdjustment;
 use src\Spec\AdjustmentRule\EveningRule;
 use src\Spec\AdjustmentRule\HolidayRule;
 use src\Spec\App\AdjustmentRule;
@@ -22,7 +22,7 @@ class AmountAdjustmentFactory
      * @param string $type チケットタイプ
      * @param \DateTimeImmutable $dateTime 日時
      *
-     * @return AmountAdjustmentInterface
+     * @return AmountAdjustment
      */
     public function create(
         int $adultCount,
@@ -30,7 +30,7 @@ class AmountAdjustmentFactory
         int $seniorCount,
         string $type,
         \DateTimeImmutable $dateTime
-    ): AmountAdjustmentInterface
+    ): AmountAdjustment
     {
         $customer = new Customer([
             new AdultPeople($adultCount, $type),

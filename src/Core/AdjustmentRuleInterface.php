@@ -7,5 +7,5 @@ use src\Spec\App\Customer;
 interface AdjustmentRuleInterface
 {
     public function match(\DateTimeImmutable $dateTime): bool;
-    public function applyAmountAdjustment(Customer $customer): AmountAdjustmentInterface;
+    public function applyAmountAdjustment(Customer $customer): AmountAdjustment;
 }

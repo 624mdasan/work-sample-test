@@ -2,7 +2,7 @@
 
 namespace src;
 
-use src\Core\AmountAdjustmentInterface;
+use src\Core\AmountAdjustment;
 
 class Exec
 {
@@ -17,7 +17,7 @@ class Exec
             2,
             2,
             '',
-            new \DateTimeImmutable('2023-03-06 10:00:00', new \DateTimeZone('Asia/Tokyo'))
+            new \DateTimeImmutable('2023-03-12 10:00:00', new \DateTimeZone('Asia/Tokyo'))
         );
 
         $this->output($amountAdjustment);
@@ -27,7 +27,7 @@ class Exec
     {
     }
 
-    private function output(AmountAdjustmentInterface $amountAdjustment)
+    private function output(AmountAdjustment $amountAdjustment)
     {
         print_r($amountAdjustment->totalAmount() . "\n");
     }
