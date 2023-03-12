@@ -1,16 +1,31 @@
 <?php
 
+namespace src;
+
+use src\AmountAdjustmentFactory;
+use src\Spec\People\Customer;
+use src\Spec\People\AdultPeople;
+use src\Spec\People\ChildPeople;
+
+//require 'src/Core/PeopleInterface.php';
+
 class CalcAmount
 {
-    public function calc(int $adultCount, int $childCount, bool $isSpecial, DateTimeImmutable $dateTime): int
+    public function calc(int $adultCount, int $childCount, bool $isSpecial, \DateTimeImmutable $dateTime): int
     {
-        $adultAmount = 1000;
-        $adultAmountSpecial = $adultAmount - 400;
+        if ($isSpecial) {
+            $adultAmount = 600;
+        } else {
+            $adultAmount = 1000;
+        }
         $adultAmountEvening = $adultAmount - 100;
         $adultAmountHoliday = $adultAmount + 200;
 
-        $childAmount = 500;
-        $childAmountSpecial = $childAmount - 100;
+        if ($isSpecial) {
+            $childAmount = 400;
+        } else {
+            $childAmount = 500;
+        }
         $childAmountEvening = $childAmount - 100;
         $childAmountHoliday = $childAmount + 200;
 
@@ -25,9 +40,7 @@ class CalcAmount
 
         $totalAmount = $subTotal;
 
-        if ($isSpecial) {
-            $totalAmount =  ($adultCount * $adultAmountSpecial) + ($childCount * $childAmountSpecial);
-        } elseif ($isEvening) {
+        if ($isEvening) {
             $totalAmount =  ($adultCount * $adultAmountEvening) + ($childCount * $childAmountEvening);
         } elseif ($isHoliday) {
             $totalAmount =  ($adultCount * $adultAmountHoliday) + ($childCount * $childAmountHoliday);
@@ -36,6 +49,27 @@ class CalcAmount
         if (($adultCount + ($childCount * 0.5)) >= 10) {
             $totalAmount = $totalAmount - round($totalAmount * 0.1);
         }
+
+        return $totalAmount;
+    }
+
+    public function provisionalCalc(int $adultCount, int $childCount, bool $isSpecial, \DateTimeImmutable $dateTime): int
+    {
+        $amountType = '';
+        if ($isSpecial) {
+            $amountType = 'special';
+        }
+
+        $peoples = new Customer([
+            new AdultPeople($adultCount, $amountType),
+            new ChildPeople($childCount, $amountType),
+        ]);
+
+        $applyRule = new AmountAdjustmentFactory($peoples, $dateTime);
+
+        $applyDetail = $applyRule->applyDetail();
+        $subTotalAmount = $applyRule->subTotalAmount();
+        $totalAmount = $applyRule->totalAmount();
 
         return $totalAmount;
     }
