@@ -31,7 +31,7 @@ class HolidayAmountAdjustment implements AmountAdjustmentInterface
     {
         $totalAmount = 0;
         foreach ($this->customer->peoples as $people) {
-            $totalAmount = ($people->amount()) * $people->count();
+            $totalAmount += ($people->amount()) * $people->count();
         }
 
         return $totalAmount;
