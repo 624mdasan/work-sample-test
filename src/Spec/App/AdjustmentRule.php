@@ -21,7 +21,7 @@ class AdjustmentRule
         $amountAdjustment = new DefaultAmountAdjustment($customer);
         foreach ($this->rules as $rule) {
             if ($rule->match($dateTime)) {
-                $amountAdjustment =  $rule->applyAmountAdjustment($customer);
+                $amountAdjustment = $rule->applyAmountAdjustment($customer);
             }
         }
 
