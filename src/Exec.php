@@ -3,6 +3,9 @@
 namespace src;
 
 use src\Core\AmountAdjustment;
+use src\Spec\People\AdultPeople;
+use src\Spec\People\ChildPeople;
+use src\Spec\People\SeniorPeople;
 
 class Exec
 {
@@ -11,7 +14,6 @@ class Exec
         $input = $this->input();
 
         $factory = new AmountAdjustmentFactory();
-
         $amountAdjustment = $factory->create(
             $input['adultCount'],
             $input['childCount'],
@@ -116,8 +118,11 @@ class Exec
         print_r(
             '=== 明細 ===' . "\n" .
              '・合計人数: ' . $detail['totalPeopleCount'] . " 人\n" .
-             '・調整種類: ' . $detail['adjustmentType'] . "\n" .
-             '・調整金額: ' . $detail['adjustmentAmount'] . " 円\n"
+             '    ・人数別: 大人 ' . $detail['peopleCount'][AdultPeople::class] . ' 人、子供 ' . $detail['peopleCount'][ChildPeople::class] . ' 人、シニア ' . $detail['peopleCount'][SeniorPeople::class] . " 人\n" .
+             '・金額の種類: ' . $detail['amountType'] . "\n" .
+             '・適用された調整: ' . $detail['adjustmentType'] . "\n" .
+             '・調整金額: ' . $detail['adjustmentAmount'] . " 円\n" .
+             '・団体向けの調整がされているか: ' . ($detail['adjustmentForGroup'] ? 'yes' : 'no') . "\n"
         );
 
         print_r(

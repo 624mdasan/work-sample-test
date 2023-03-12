@@ -32,4 +32,9 @@ class AdultPeople implements PeopleInterface
             return self::DEFAULT_AMOUNT;
         }
     }
+
+    public function amountType(): string
+    {
+        return $this->amountType;
+    }
 }

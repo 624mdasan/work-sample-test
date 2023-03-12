@@ -9,6 +9,11 @@ class DefaultAmountAdjustment extends AmountAdjustment
 {
     public function __construct(protected Customer $customer) {}
 
+    public function type(): string
+    {
+        return 'default';
+    }
+
     public function adjustmentValue(): int
     {
         return 0;
