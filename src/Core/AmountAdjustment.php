@@ -4,7 +4,6 @@ namespace src\Core;
 
 use src\Spec\App\Customer;
 
-
 abstract class AmountAdjustment
 {
     abstract public function __construct(Customer $peoples);
@@ -37,6 +36,7 @@ abstract class AmountAdjustment
 
     public function adjustmentDetail(): array
     {
+        // TODO: ロジック作成
         $result = [];
         foreach ($this->customer->peoples as $people) {
             $result = [
@@ -47,6 +47,10 @@ abstract class AmountAdjustment
             ];
         }
 
-        return $result;
+        return [
+            'totalPeopleCount' => $totalPeopleCount,
+            'adjustmentType' => $adjustmentType,
+            'adjustmentAmount' => $adjustmentAmount,
+        ];
     }
 }
