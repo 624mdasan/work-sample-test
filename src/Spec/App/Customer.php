@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Spec\People;
+namespace src\Spec\App;
 
 use src\Core\PeopleInterface;
 
@@ -14,7 +14,7 @@ class Customer
     ) { }
 
     /**
-     * 団体計算
+     * 団体判定
      *
      * @return bool
      */

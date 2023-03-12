@@ -2,11 +2,11 @@
 
 use PHPUnit\Framework\TestCase;
 use src\Core\PeopleInterface;
+use src\Spec\AmountAdjustment\EveningAmountAdjustment;
+use src\Spec\App\Customer;
 use src\Spec\People\AdultPeople;
 use src\Spec\People\ChildPeople;
 use src\Spec\People\SeniorPeople;
-use src\Spec\People\Customer;
-use src\Spec\AmountAdjustment\EveningAmountAdjustment;
 
 class EveningAmountAdjustmentTest extends TestCase
 {

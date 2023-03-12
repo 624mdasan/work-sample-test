@@ -3,16 +3,27 @@
 namespace src;
 
 use src\Core\AmountAdjustmentInterface;
-use src\Spec\AmountAdjustment\DefaultAmountAdjustment;
-use src\Spec\AmountAdjustment\EveningAmountAdjustment;
-use src\Spec\AmountAdjustment\HolidayAmountAdjustment;
-use src\Spec\People\Customer;
+use src\Spec\AdjustmentRule\EveningRule;
+use src\Spec\AdjustmentRule\HolidayRule;
+use src\Spec\App\AdjustmentRule;
+use src\Spec\App\Customer;
 use src\Spec\People\AdultPeople;
 use src\Spec\People\ChildPeople;
 use src\Spec\People\SeniorPeople;
 
 class AmountAdjustmentFactory
 {
+    /**
+     * 条件によって対象のAmountAdjustmentクラスを適用する
+     *
+     * @param int $adultCount 大人の人数
+     * @param int $childCount 子供の人数
+     * @param int $seniorCount シニアの人数
+     * @param string $type チケットタイプ
+     * @param \DateTimeImmutable $dateTime 日時
+     *
+     * @return AmountAdjustmentInterface
+     */
     public function create(
         int $adultCount,
         int $childCount,
@@ -27,17 +38,11 @@ class AmountAdjustmentFactory
             new SeniorPeople($seniorCount, $type),
         ]);
 
-        $dayOfWeek = $dateTime->format('w');
-        $evening = $dateTime->setTime(17, 0, 0);
-        $isEvening = ($dateTime >= $evening) && !($dayOfWeek == 0 || $dayOfWeek == 6);
-        $isHoliday = $dayOfWeek == 0 || $dayOfWeek == 6;
+        $adjustmentRule = new AdjustmentRule([
+            new EveningRule(),
+            new HolidayRule(),
+        ]);
 
-        if ($isEvening) {
-            return new EveningAmountAdjustment($customer);
-        } elseif ($isHoliday) {
-            return new HolidayAmountAdjustment($customer);
-        } else {
-            return new DefaultAmountAdjustment($customer);
-        }
+        return $adjustmentRule->apply($customer, $dateTime);
     }
 }

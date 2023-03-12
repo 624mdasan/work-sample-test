@@ -3,24 +3,11 @@
 namespace src\Spec\AmountAdjustment;
 
 use src\Core\AmountAdjustmentInterface;
-use src\Spec\People\Customer;
+use src\Spec\App\Customer;
 
 class HolidayAmountAdjustment implements AmountAdjustmentInterface
 {
     public function __construct(protected Customer $customer) {}
-
-    public function match($dateTime, $isSpecial): bool
-    {
-        // 特別な場合は対象にしない
-        if ($isSpecial) {
-            return false;
-        }
-
-        $dayOfWeek = $dateTime->format('w');
-        $evening = $dateTime->setTime(17, 0, 0);
-
-        return ($dateTime >= $evening) && !($dayOfWeek == 0 || $dayOfWeek == 6);
-    }
 
     public function adjustmentValue(): int
     {

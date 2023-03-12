@@ -4,15 +4,15 @@ namespace src;
 
 use src\Core\AmountAdjustmentInterface;
 
-class App
+class Exec
 {
     public function exec(): void
     {
         $input = $this->input();
 
-        $hoge = new AmountAdjustmentFactory();
+        $factory = new AmountAdjustmentFactory();
 
-        $amountAdjustment = $hoge->create(
+        $amountAdjustment = $factory->create(
             2,
             2,
             2,
@@ -35,5 +35,5 @@ class App
 
 require_once 'vendor/autoload.php';
 
-$app = new App();
+$app = new Exec();
 $app->exec();
