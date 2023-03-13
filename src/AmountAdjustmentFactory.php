@@ -5,6 +5,7 @@ namespace src;
 use src\Core\AmountAdjustment;
 use src\Spec\AdjustmentRule\EveningRule;
 use src\Spec\AdjustmentRule\HolidayRule;
+use src\Spec\AdjustmentRule\MonWedRule;
 use src\Spec\App\AdjustmentRule;
 use src\Spec\App\Customer;
 use src\Spec\People\AdultPeople;
@@ -41,6 +42,7 @@ class AmountAdjustmentFactory
         $adjustmentRule = new AdjustmentRule([
             new EveningRule(),
             new HolidayRule(),
+            new MonWedRule(),
         ]);
 
         return $adjustmentRule->apply($customer, $dateTime);
